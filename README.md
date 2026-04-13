@@ -1,4 +1,3 @@
-```markdown
 ## direct_air_capture
 
 Arduino-based direct air capture system for extracting CO₂ from ambient air and storing it in a tank.
@@ -80,4 +79,3 @@ To showcase project experience more fully:
 ## License
 
 This project is available for learning and experimentation. Add a license if you want to define reuse terms explicitly.
-```
