@@ -1,4 +1,4 @@
-# direct_air_capture
+# Direct Air Capture Using Carbon Capture and Storage (CCS) technology
 
 Arduino-based direct air capture system for extracting CO₂ from ambient air and storing it in a tank.  
 🚀 A prototype showing hardware control, sensor monitoring, gas capture logic, and CAD-supported enclosure design.
