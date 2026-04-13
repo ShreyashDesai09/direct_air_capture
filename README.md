@@ -1,82 +1,107 @@
-## direct_air_capture
+# direct_air_capture
 
 Arduino-based direct air capture system for extracting CO₂ from ambient air and storing it in a tank.  
-🚀 A prototype showing hardware control, sensor monitoring, and gas capture logic.
+🚀 A prototype showing hardware control, sensor monitoring, gas capture logic, and CAD-supported enclosure design.
+
+![Prototype schematic or mockup](./assets/prototype-image.png)
 
 ## Project Summary
 
-This repository contains the main Arduino sketch for a direct air capture prototype. The project demonstrates:
+This repository contains the main Arduino sketch and supporting design assets for a direct air capture prototype. The system uses pressure, temperature, and CO₂ sensors to manage air flow, vacuum, heating, and storage stages.
 
-- 🧪 CO₂ sensing and monitoring
-- 💨 air circulation and actuation
-- 🛢️ storage of captured gas
-- 🤖 embedded control logic for environmental hardware
+The project demonstrates:
+
+- 🧠 embedded Arduino control logic
+- 🧪 analog sensor monitoring and serial debugging
+- 💨 actuator control for fans, valves, heater, and vacuum
+- 🛠️ CAD-based hardware design and assembly planning
+- 📁 documentation-ready structure for prototyping
 
 ## What the System Does
 
-- 🌡️ reads CO₂ concentration from a sensor
-- 🌀 activates a fan or pump to pull air through the capture assembly
-- 🧾 routes captured air toward a storage tank or reservoir
-- 📡 monitors the system using serial output
+- 🌡️ reads pressure, temperature, CO₂, and chamber pressure sensors
+- 🌀 controls air flow, vacuum creation, heating, and storage
+- 🧾 routes captured air through the sorbent/collection assembly
+- 📡 displays live values on a 16x2 LCD and sends telemetry over Serial
 
-## Files
+## Key Files
 
-- `Mega_Project_Final_Code.ino` — main Arduino sketch for the direct air capture system
+- `Mega_Project_Final_Code.ino` — main Arduino sketch
+- `README.md` — project overview and usage guide
+- `Documents/3D Design/` — CAD parts for the sorbent panel and assembly
 
 ## Hardware Components
 
 Typical components used in this prototype:
 
 - 🧠 Arduino board (Uno, Nano, Mega, etc.)
-- 🌿 CO₂ sensor module
-- 💨 fan or air pump
-- 🔌 relay, MOSFET, or driver circuit
-- 🧰 valves, tubing, and fittings
-- 🛢️ storage tank or reservoir
-- 🔋 power supply
+- 🌿 CO₂ sensor module connected to `A2`
+- 🧪 pressure sensors on `A0` and `A3`
+- 🌡️ temperature sensor on `A1`
+- 💨 fan or pump driver on pin `23`
+- 🔧 solenoid valves `SV1`–`SV5` on pins `27`, `31`, `35`, `39`, `43`
+- 🔋 vacuum compressor driver on pin `47`
+- 🔌 heater control on pin `29`
+- 🖥️ 16x2 LCD display wired via `LiquidCrystal` pins
 
-## Setup
+## System Workflow
 
-1. 📝 Open `Mega_Project_Final_Code.ino` in the Arduino IDE.
-2. 🔌 Connect the Arduino board to your computer.
-3. 🔧 Wire the CO₂ sensor, fan/pump, and any valves as required.
-4. 🖥️ Select the correct board and serial port in the Arduino IDE.
+1. ⚙️ `setup()` initializes the LCD, serial port, sensors, and actuators.
+2. 🔄 `loop()` cycles through:
+   - `dis()` — read sensors and update LCD/Serial
+   - `Air_Flow()` — open flow path and circulate air
+   - `vacuum()` — close valves and engage vacuum
+   - `heat()` — heat the chamber and monitor temperature
+   - `store()` — manage final pressurization and storage
+3. 🧭 Control decisions are based on measured analog values and safety thresholds.
+
+## Operational Stages
+
+- `Air_Flow()` — configures valves and fan to direct air through capture assembly
+- `vacuum()` — closes flow valves, starts compressor, and creates negative pressure
+- `heat()` — powers heater while monitoring temperature
+- `store()` — manages final storage flow and chamber pressure
+
+## 3D Design Assets
+
+The `Documents/3D Design/` folder contains CAD files for the mechanical parts of the prototype, including:
+
+- `sorbent panel.IGS`
+- `I-section of sorbent panel.IGS`
+- `100mm.CATPart`
+- `150mm.CATPart`
+- `left.CATPart`
+- `right.CATPart`
+- `Part1.CATPart`
+
+These files can be used to visualize or manufacture the capture assembly and support structure.
+
+## How to Use
+
+1. 📝 Open `Mega_Project_Final_Code.ino` in Arduino IDE.
+2. 🔌 Connect the Arduino to your PC.
+3. 🔧 Wire the sensors and actuators according to the pin assignments in the sketch.
+4. 🖥️ Select the correct board and COM port.
 5. 📤 Upload the sketch.
-6. 📟 Open the serial monitor to view CO₂ readings and system status.
-
-## How It Works
-
-1. ⚙️ The Arduino initializes input and output pins.
-2. 🧪 It reads CO₂ concentration from the sensor at regular intervals.
-3. 🚦 When CO₂ thresholds are reached, the system powers the fan/pump.
-4. 🛤️ Captured air is directed toward the storage tank.
-5. 📊 The sketch provides a foundation for additional automation and data logging.
-
-## Demonstration
-
-To best showcase the project, include:
-
-- 📷 a photo or video of the working prototype
-- 🔌 a wiring diagram or schematic
-- 🧾 a component list / bill of materials
-- 📈 sample CO₂ data readings
+6. 📟 Open Serial Monitor at `9600` baud and watch the LCD for live data.
 
 ## Recommended Enhancements
 
-To showcase project experience more fully:
+To make the project stronger and more portfolio-ready:
 
-- 🧾 add a `BOM` or hardware list
-- 📐 include wiring diagrams or schematics
-- 🧪 document calibration and test procedures
-- 💾 add data logging or display output
-- 🔄 refine the capture algorithm for improved efficiency
+- 📊 add actual sensor mapping and calibration formulas
+- 🧾 document the exact wiring and pin mapping
+- 🧰 include a bill of materials (BOM)
+- 📐 add a wiring diagram or schematic image
+- 🎥 include photos or a demo video of the prototype
+- 💾 add data logging or SD card export
 
 ## Notes
 
 - ✅ Verify sensor wiring before powering the system.
-- ⚠️ Calibrate the CO₂ sensor for accurate readings.
-- 🔌 Ensure safe power and wiring connections.
+- ⚠️ Calibrate the CO₂ sensor and temperature probe for accurate readings.
+- 🔌 Ensure safe power, valve, and heater connections.
 
 ## License
 
-This project is available for learning and experimentation. Add a license if you want to define reuse terms explicitly.
+This project is available for learning and experimentation. Add a license file if you want to define reuse terms explicitly.
